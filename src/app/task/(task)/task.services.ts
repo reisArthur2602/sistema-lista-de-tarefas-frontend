@@ -20,4 +20,9 @@ const createTask = async (credentials: TaskRequest) => {
   return data;
 };
 
-export { getTasks, createTask };
+const deleteTask = async (id: string) => {
+  await apiConnection.delete(TASK_ENDPOINT +`?id=${id}`);
+  revalidatePath("/task");
+};
+
+export { getTasks, createTask, deleteTask };

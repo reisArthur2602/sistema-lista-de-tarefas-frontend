@@ -20,8 +20,8 @@ type DeleteTaskButtonProps = {
 };
 
 const DeleteTaskButton = ({ id }: DeleteTaskButtonProps) => {
-  const {} = useTaskModel();
-  console.log(id);
+  const { handleDeleteTask } = useTaskModel();
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -41,7 +41,9 @@ const DeleteTaskButton = ({ id }: DeleteTaskButtonProps) => {
 
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction>Continuar</AlertDialogAction>
+          <AlertDialogAction onClick={() => handleDeleteTask(id)}>
+            Continuar
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

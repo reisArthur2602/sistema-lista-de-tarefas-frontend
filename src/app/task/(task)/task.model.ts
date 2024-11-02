@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTaskSchema } from "./task.schema";
 import { TaskRequest } from "./task.types";
-import { createTask } from "./task.services";
+import { createTask, deleteTask } from "./task.services";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 
@@ -34,5 +34,21 @@ export const useTaskModel = () => {
       });
   });
 
-  return { register, handleCreateTask, errors };
+  const handleDeleteTask = async (id: string) => {
+    await deleteTask(id)
+      .then(() => {
+        toast.success("A tarefa foi excluída com sucesso!");
+        reset();
+      })
+      .catch((error) => {
+        if (isAxiosError(error)) {
+          const errorMessage = error.response?.data.message as
+            | string
+            | "Erro ao excluir tarefa";
+          toast.error(errorMessage);
+        }
+      });
+  };
+
+  return { register, handleCreateTask, handleDeleteTask, errors };
 };
