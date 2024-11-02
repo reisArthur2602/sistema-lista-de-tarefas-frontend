@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatDate = (value: Date) => {
-  return format(new Date(value), "dd/MM/yyyy");
+export const formatDate = (value: string) => {
+  return format(new Date(value), "dd-MM-yyyy");
 };
 
 export const formatPrice = (value: number) => {
@@ -16,4 +16,8 @@ export const formatPrice = (value: number) => {
     style: "currency",
     currency: "BRL",
   }).format(value);
+};
+
+export const isCostAboveThreshold = (price: number) => {
+  return price >= 1000;
 };

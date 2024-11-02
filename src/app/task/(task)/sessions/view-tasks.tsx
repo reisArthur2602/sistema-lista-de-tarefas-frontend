@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TaskResponse } from "../task.types";
-import { formatDate, formatPrice } from "@/lib/utils";
+import { formatDate, formatPrice, isCostAboveThreshold } from "@/lib/utils";
 import DeleteTaskButton from "./delete-task-button";
 import EditTaskButton from "./edit-task-button";
 
@@ -17,8 +17,6 @@ type ViewTasksProps = {
 };
 
 const ViewTasks = ({ tasks }: ViewTasksProps) => {
-
-
   return (
     <Table>
       <TableCaption>Tarefas cadastradas no sistema</TableCaption>
@@ -33,7 +31,10 @@ const ViewTasks = ({ tasks }: ViewTasksProps) => {
       </TableHeader>
       <TableBody>
         {tasks.map((task) => (
-          <TableRow key={task.id} >
+          <TableRow
+            key={task.id}
+            className={`${isCostAboveThreshold(task.cost) && "bg-blue-50"}`}
+          >
             <TableCell>{task.id}</TableCell>
             <TableCell>{task.name}</TableCell>
             <TableCell>{formatPrice(task.cost)}</TableCell>
