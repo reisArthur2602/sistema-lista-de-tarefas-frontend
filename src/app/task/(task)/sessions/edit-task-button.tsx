@@ -17,14 +17,19 @@ import { Label } from "@/components/ui/label";
 import { Pen } from "lucide-react";
 
 import { TaskResponse } from "../task.types";
-import { formatDate } from "@/lib/utils";
+
+import { useTaskModel } from "../task.model";
+
+import { format } from "date-fns";
 
 type EditTaskButtonProps = {
   task: TaskResponse;
 };
 
 const EditTaskButton = ({ task }: EditTaskButtonProps) => {
-  console.log(formatDate(task.limitDate));
+  const { editForm, handleEditTask } = useTaskModel(task.id);
+
+  const formatedDate = format(new Date(task.limitDate), "yyyy-MM-dd");
 
   return (
     <Sheet>
@@ -42,7 +47,7 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
           </SheetDescription>
         </SheetHeader>
 
-        <form className="pt-4">
+        <form className="pt-4" onSubmit={handleEditTask}>
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="name">Nome</Label>
             <Input
@@ -50,23 +55,38 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
               placeholder="Nome para a tarefa"
               autoFocus
               defaultValue={task.name}
+              {...editForm.register("name")}
             />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="limitDate">Data Limite</Label>
-            <Input id="limitDate" type="date" defaultValue={`2024-02-10`} />
+            <Input
+              id="limitDate"
+              type="date"
+              defaultValue={formatedDate}
+              {...editForm.register("limitDate")}
+            />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="cost">Custo</Label>
-            <Input id="cost" placeholder="R$" defaultValue={task.cost} />
+            <Input
+              id="cost"
+              placeholder="R$"
+              defaultValue={task.cost}
+              {...editForm.register("cost")}
+            />
           </div>
 
           <SheetFooter>
             <SheetClose asChild>
-              <Button>Salvar altereções</Button>
+              <Button variant={"secondary"} type="button">
+                Cancelar
+              </Button>
             </SheetClose>
+
+            <Button>Salvar alterações</Button>
           </SheetFooter>
         </form>
       </SheetContent>

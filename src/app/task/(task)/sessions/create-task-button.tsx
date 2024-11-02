@@ -17,7 +17,7 @@ import { Plus } from "lucide-react";
 import { useTaskModel } from "../task.model";
 
 const CreateTaskButton = () => {
-  const { handleCreateTask, register } = useTaskModel();
+  const { handleCreateTask, createForm } = useTaskModel();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -42,13 +42,13 @@ const CreateTaskButton = () => {
               id="name"
               placeholder="Nome para a tarefa"
               autoFocus
-              {...register("name")}
+              {...createForm.register("name")}
             />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="limitDate">Data Limite</Label>
-            <Input id="limitDate" type="date" {...register("limitDate")} />
+            <Input id="limitDate" type="date" {...createForm.register("limitDate")} />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
@@ -56,7 +56,7 @@ const CreateTaskButton = () => {
             <Input
               id="cost"
               placeholder="R$"
-              {...register("cost")}
+              {...createForm.register("cost")}
             />
           </div>
 

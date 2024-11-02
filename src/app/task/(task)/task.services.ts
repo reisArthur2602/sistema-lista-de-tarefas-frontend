@@ -1,7 +1,7 @@
 "use server";
 import { TASK_ENDPOINT } from "@/constants/task";
 import { apiConnection } from "@/lib/axios";
-import { TaskRequest, TaskResponse } from "./task.types";
+import { EditTaskRequest, TaskRequest, TaskResponse } from "./task.types";
 import { revalidatePath } from "next/cache";
 
 const getTasks = async () => {
@@ -21,8 +21,13 @@ const createTask = async (credentials: TaskRequest) => {
 };
 
 const deleteTask = async (id: string) => {
-  await apiConnection.delete(TASK_ENDPOINT +`?id=${id}`);
+  await apiConnection.delete(TASK_ENDPOINT + `?id=${id}`);
   revalidatePath("/task");
 };
 
-export { getTasks, createTask, deleteTask };
+const editTask = async (credentials: EditTaskRequest) => {
+  await apiConnection.patch<TaskResponse>(TASK_ENDPOINT, credentials);
+  revalidatePath("/task");
+};
+
+export { getTasks, createTask, deleteTask, editTask };

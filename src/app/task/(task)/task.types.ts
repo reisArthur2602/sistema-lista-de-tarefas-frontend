@@ -14,7 +14,7 @@ export type TaskRequest = {
 
 export type EditTaskRequest = {
   id: string;
-  name?: string;
-  cost?: number;
-  limitDate?: Date;
+  name: string;
+  cost: number;
+  limitDate: string;
 };
