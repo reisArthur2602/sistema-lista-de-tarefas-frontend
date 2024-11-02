@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,8 +14,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Plus } from "lucide-react";
+import { useTaskModel } from "../task.model";
 
 const CreateTaskButton = () => {
+  const { handleCreateTask, register } = useTaskModel();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,21 +35,29 @@ const CreateTaskButton = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <form>
-
+        <form onSubmit={handleCreateTask}>
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="name">Nome</Label>
-            <Input id="name" placeholder="Nome para a tarefa" autoFocus />
+            <Input
+              id="name"
+              placeholder="Nome para a tarefa"
+              autoFocus
+              {...register("name")}
+            />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="limitDate">Data Limite</Label>
-            <Input id="limitDate" type="date" />
+            <Input id="limitDate" type="date" {...register("limitDate")} />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="cost">Custo</Label>
-            <Input id="cost" placeholder="R$" />
+            <Input
+              id="cost"
+              placeholder="R$"
+              {...register("cost")}
+            />
           </div>
 
           <DialogFooter>
@@ -57,7 +69,6 @@ const CreateTaskButton = () => {
 
             <Button>Cadastrar</Button>
           </DialogFooter>
-
         </form>
       </DialogContent>
     </Dialog>
