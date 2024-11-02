@@ -1,7 +1,7 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
 const Page = () => {
-  return <div>Page</div>;
+  return redirect("/task");
 };
 
 export default Page;
