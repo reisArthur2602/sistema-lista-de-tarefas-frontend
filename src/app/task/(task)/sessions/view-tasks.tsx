@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { TaskResponse } from "../task.types";
 import { formatDate, formatPrice } from "@/lib/utils";
-
+import DeleteTaskButton from "./delete-task-button";
 
 type ViewTasksProps = {
   tasks: TaskResponse[] | [];
@@ -35,7 +35,11 @@ const ViewTasks = ({ tasks }: ViewTasksProps) => {
             <TableCell>{name}</TableCell>
             <TableCell>{formatPrice(cost)}</TableCell>
             <TableCell>{formatDate(limitDate)}</TableCell>
-            <TableCell>...</TableCell>
+            <TableCell>
+              <div className="flex items-center gap-4">
+                <DeleteTaskButton id={id}/>
+              </div>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
