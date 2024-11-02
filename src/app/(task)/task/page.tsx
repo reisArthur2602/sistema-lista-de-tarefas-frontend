@@ -1,5 +1,11 @@
+import TaskHeaderSection from "./sessions/task-header-section";
+
 const TaskPage = () => {
-  return <div>TaskPage</div>;
+  return (
+    <>
+      <TaskHeaderSection />
+    </>
+  );
 };
 
 export default TaskPage;
