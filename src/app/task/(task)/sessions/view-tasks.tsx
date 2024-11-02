@@ -10,12 +10,15 @@ import {
 import { TaskResponse } from "../task.types";
 import { formatDate, formatPrice } from "@/lib/utils";
 import DeleteTaskButton from "./delete-task-button";
+import EditTaskButton from "./edit-task-button";
 
 type ViewTasksProps = {
   tasks: TaskResponse[] | [];
 };
 
 const ViewTasks = ({ tasks }: ViewTasksProps) => {
+
+
   return (
     <Table>
       <TableCaption>Tarefas cadastradas no sistema</TableCaption>
@@ -29,15 +32,16 @@ const ViewTasks = ({ tasks }: ViewTasksProps) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {tasks.map(({ cost, id, limitDate, name }) => (
-          <TableRow key={id}>
-            <TableCell>{id}</TableCell>
-            <TableCell>{name}</TableCell>
-            <TableCell>{formatPrice(cost)}</TableCell>
-            <TableCell>{formatDate(limitDate)}</TableCell>
+        {tasks.map((task) => (
+          <TableRow key={task.id} >
+            <TableCell>{task.id}</TableCell>
+            <TableCell>{task.name}</TableCell>
+            <TableCell>{formatPrice(task.cost)}</TableCell>
+            <TableCell>{formatDate(task.limitDate)}</TableCell>
             <TableCell>
-              <div className="flex items-center gap-4">
-                <DeleteTaskButton id={id}/>
+              <div className="flex items-center">
+                <DeleteTaskButton id={task.id} />
+                <EditTaskButton task={task} />
               </div>
             </TableCell>
           </TableRow>

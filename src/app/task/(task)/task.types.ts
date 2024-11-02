@@ -2,7 +2,7 @@ export type TaskResponse = {
   id: string;
   name: string;
   cost: number;
-  limitDate: Date;
+  limitDate: string;
   sortOrder: number;
 };
 
