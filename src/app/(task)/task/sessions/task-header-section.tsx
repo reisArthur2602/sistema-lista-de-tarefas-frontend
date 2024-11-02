@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import CreateTaskButton from "./create-task-button";
 
 const TaskHeaderSection = () => {
   return (
@@ -8,11 +7,7 @@ const TaskHeaderSection = () => {
         <h1 className="text-xl font-bold">Minhas Tarefas</h1>
         <p className="text-sm text-zinc-400">Gerenciar minhas tarefas</p>
       </div>
-
-      <Button>
-        <Plus />
-        <>Nova Tarefa</>
-      </Button>
+      <CreateTaskButton />
     </section>
   );
 };
