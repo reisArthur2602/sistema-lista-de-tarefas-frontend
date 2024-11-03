@@ -21,7 +21,7 @@ type ViewTasksProps = {
 };
 
 const ViewTasks = ({ tasks }: ViewTasksProps) => {
-  const { handleMoveToUp } = useTaskModel();
+  const { handleMoveToUp, handleMoveToDown } = useTaskModel();
 
   return (
     <Table>
@@ -46,10 +46,13 @@ const ViewTasks = ({ tasks }: ViewTasksProps) => {
             <TableCell>{formatPrice(task.cost)}</TableCell>
             <TableCell>{formatDate(task.limitDate)}</TableCell>
             <TableCell>
-              <div className="flex items-center">
+              <div className="flex items-center gap-2">
                 <DeleteTaskButton id={task.id} />
                 <EditTaskButton task={task} />
-                <MoveTaskButton onMoveUp={() => handleMoveToUp(tasks, index)} />
+                <MoveTaskButton
+                  onMoveUp={() => handleMoveToUp(tasks, index)}
+                  onMoveDown={() => handleMoveToDown(tasks, index)}
+                />
               </div>
             </TableCell>
           </TableRow>

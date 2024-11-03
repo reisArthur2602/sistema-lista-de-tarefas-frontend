@@ -68,6 +68,26 @@ export const useTaskModel = (id?: string) => {
       toast.error(result.error);
     }
   };
+  
+  const handleMoveToDown = async (tasks: TaskResponse[], index: number) => {
+    if (index === tasks.length - 1) return;
+
+    const taskToMoveDown = tasks[index];
+    const taskToMoveUp = tasks[index + 1];
+
+    const tasksToUpdate = [
+      { id: taskToMoveDown.id, sortOrder: taskToMoveDown.sortOrder + 1 },
+      { id: taskToMoveUp.id, sortOrder: taskToMoveUp.sortOrder - 1 },
+    ];
+
+    const result = await reorderTask(tasksToUpdate);
+
+    if (result.success) {
+      toast.success(result.body);
+    } else {
+      toast.error(result.error);
+    }
+  };
 
   return {
     createForm,
@@ -76,5 +96,6 @@ export const useTaskModel = (id?: string) => {
     handleDeleteTask,
     handleEditTask,
     handleMoveToUp,
+    handleMoveToDown,
   };
 };
