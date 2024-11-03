@@ -30,6 +30,7 @@ const FormRegister = () => {
         <Input
           placeholder="Digite seu email"
           {...registerForm.register("email")}
+          disabled={registerForm.formState.isSubmitting}
         />
         <ErrorMessage message={registerForm.formState.errors.email?.message} />
       </div>
@@ -39,13 +40,14 @@ const FormRegister = () => {
           placeholder="******"
           type="password"
           {...registerForm.register("password")}
+          disabled={registerForm.formState.isSubmitting}
         />
         <ErrorMessage
           message={registerForm.formState.errors.password?.message}
         />
       </div>
 
-      <Button>Acessar</Button>
+      <Button disabled={registerForm.formState.isSubmitting}>Acessar</Button>
       <Link
         href="/auth"
         className="text-center text-sm transition-all hover:text-primary"

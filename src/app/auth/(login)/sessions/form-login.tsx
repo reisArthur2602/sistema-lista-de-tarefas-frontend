@@ -29,6 +29,7 @@ const FormLogin = () => {
         <Input
           placeholder="Digite seu email"
           {...loginForm.register("email")}
+          disabled={loginForm.formState.isSubmitting}
         />
         <ErrorMessage message={loginForm.formState.errors.email?.message} />
       </div>
@@ -38,11 +39,12 @@ const FormLogin = () => {
           placeholder="******"
           type="password"
           {...loginForm.register("password")}
+          disabled={loginForm.formState.isSubmitting}
         />
         <ErrorMessage message={loginForm.formState.errors.password?.message} />
       </div>
 
-      <Button>Acessar</Button>
+      <Button disabled={loginForm.formState.isSubmitting}>Acessar</Button>
       <Link
         href="/auth/register"
         className="text-center text-sm transition-all hover:text-primary"
