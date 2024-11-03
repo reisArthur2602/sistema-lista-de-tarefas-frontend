@@ -20,7 +20,7 @@ import { TaskResponse } from "../task.types";
 
 import { useTaskModel } from "../task.model";
 
-import { format } from "date-fns";
+import { formatDate } from "@/lib/utils";
 
 type EditTaskButtonProps = {
   task: TaskResponse;
@@ -29,7 +29,7 @@ type EditTaskButtonProps = {
 const EditTaskButton = ({ task }: EditTaskButtonProps) => {
   const { editForm, handleEditTask } = useTaskModel(task.id);
 
-  const formatedDate = format(new Date(task.limitDate), "yyyy-MM-dd");
+  const formattedDate  = formatDate(task.limitDate);
 
   return (
     <Sheet>
@@ -64,7 +64,7 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
             <Input
               id="limitDate"
               type="date"
-              defaultValue={formatedDate}
+              defaultValue={formattedDate}
               {...editForm.register("limitDate")}
             />
           </div>

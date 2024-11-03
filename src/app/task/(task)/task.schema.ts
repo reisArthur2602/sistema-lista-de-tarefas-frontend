@@ -20,7 +20,6 @@ export const EditTaskSchema = z.object({
     .trim(),
 
   cost: z.coerce.number({ message: "O custo da tarefa deve ser um número" }),
-
   limitDate: z.coerce.date({
     message: "A data limite da tarefa é um campo obrigátório",
   }),

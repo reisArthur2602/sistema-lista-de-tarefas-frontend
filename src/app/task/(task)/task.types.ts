@@ -2,7 +2,7 @@ export type TaskResponse = {
   id: string;
   name: string;
   cost: number;
-  limitDate: string;
+  limitDate: Date;
   sortOrder: number;
 };
 
@@ -16,7 +16,7 @@ export type EditTaskRequest = {
   id: string;
   name: string;
   cost: number;
-  limitDate: string;
+  limitDate: Date;
 };
 
 export type ReoderTaskRequest = {
