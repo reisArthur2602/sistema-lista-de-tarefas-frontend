@@ -1,13 +1,20 @@
 "use client";
 
+import ErrorMessage from "@/components/error-message";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useRegisterModel } from "../register.model";
 
 const FormRegister = () => {
+  const { handleRegister, registerForm } = useRegisterModel();
+
   return (
-    <form className="flex w-full max-w-96 flex-col gap-6">
+    <form
+      className="flex w-full max-w-96 flex-col gap-6"
+      onSubmit={handleRegister}
+    >
       <div className="flex items-center justify-center">
         <Logo />
       </div>
@@ -19,8 +26,25 @@ const FormRegister = () => {
         </p>
       </div>
 
-      <Input placeholder="Digite seu email" />
-      <Input placeholder="******" type="password" />
+      <div className="flex flex-col gap-3">
+        <Input
+          placeholder="Digite seu email"
+          {...registerForm.register("email")}
+        />
+        <ErrorMessage message={registerForm.formState.errors.email?.message} />
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <Input
+          placeholder="******"
+          type="password"
+          {...registerForm.register("password")}
+        />
+        <ErrorMessage
+          message={registerForm.formState.errors.password?.message}
+        />
+      </div>
+
       <Button>Acessar</Button>
       <Link
         href="/auth"
