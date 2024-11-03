@@ -1,5 +1,7 @@
+import FormRegister from "./sessions/form-register";
+
 const Register = () => {
-  return <div>Register</div>;
+  return <FormRegister />;
 };
 
 export default Register;
