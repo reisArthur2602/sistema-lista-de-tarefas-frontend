@@ -1,26 +1,36 @@
+import { TASK_SCHEMA_MESSAGES } from "@/constants/task";
 import { z } from "zod";
 
 export const CreateTaskSchema = z.object({
   name: z
-    .string({ message: "O nome da tarefa deve ser uma string" })
-    .min(3, { message: "O nome da tarefa deve conter no mínimo 3 caracteres" })
+    .string()
+    .min(3, { message: TASK_SCHEMA_MESSAGES.NAME_MIN_LENGTH })
     .toLowerCase()
     .trim(),
-  cost: z.coerce.number({ message: "O custo da tarefa deve ser um número" }),
-  limitDate: z.coerce.date({
-    message: "A data limite da tarefa é um campo obrigátório",
-  }),
+  cost: z.coerce
+    .number()
+    .positive({ message: TASK_SCHEMA_MESSAGES.COST_POSITIVE }),
+  limitDate: z
+    .string()
+    .min(1, {
+      message: TASK_SCHEMA_MESSAGES.LIMIT_DATE_REQUIRED,
+    })
+    .transform((date) => new Date(date)),
 });
 
 export const EditTaskSchema = z.object({
   name: z
-    .string({ message: "O nome da tarefa deve ser uma string" })
-    .min(3, { message: "O nome da tarefa deve conter no mínimo 3 caracteres" })
+    .string()
+    .min(3, { message: TASK_SCHEMA_MESSAGES.NAME_MIN_LENGTH })
     .toLowerCase()
     .trim(),
-
-  cost: z.coerce.number({ message: "O custo da tarefa deve ser um número" }),
-  limitDate: z.coerce.date({
-    message: "A data limite da tarefa é um campo obrigátório",
-  }),
+  cost: z.coerce
+    .number()
+    .positive({ message: TASK_SCHEMA_MESSAGES.COST_POSITIVE }),
+  limitDate: z
+    .string()
+    .min(1, {
+      message: TASK_SCHEMA_MESSAGES.LIMIT_DATE_REQUIRED,
+    })
+    .transform((date) => new Date(date)),
 });

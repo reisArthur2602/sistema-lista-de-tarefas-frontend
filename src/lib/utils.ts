@@ -1,4 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
+import { KeyboardEvent } from "react";
+
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -16,10 +18,6 @@ export const formatDate = (date: Date | string) => {
   return formattedDate;
 };
 
-// export const formatDate = (date: Date) => {
-//   const formattedDate = new Date(date);
-//   return format(formattedDate, "dd-MM-yyyy");
-// };
 
 export const formatPrice = (value: number) => {
   return new Intl.NumberFormat("pt-br", {
@@ -30,4 +28,11 @@ export const formatPrice = (value: number) => {
 
 export const isCostAboveThreshold = (price: number) => {
   return price >= 1000;
+};
+
+
+export const MaskInputNumber = (event:KeyboardEvent<HTMLInputElement>) => {
+  if (!/[0-9]/.test(event.key) && !['Backspace', 'Tab', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+    event.preventDefault();
+  }
 };

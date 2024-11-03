@@ -20,7 +20,8 @@ import { TaskResponse } from "../task.types";
 
 import { useTaskModel } from "../task.model";
 
-import { formatDate } from "@/lib/utils";
+import { formatDate, MaskInputNumber } from "@/lib/utils";
+import ErrorMessage from "@/components/error-message";
 
 type EditTaskButtonProps = {
   task: TaskResponse;
@@ -29,7 +30,7 @@ type EditTaskButtonProps = {
 const EditTaskButton = ({ task }: EditTaskButtonProps) => {
   const { editForm, handleEditTask } = useTaskModel(task.id);
 
-  const formattedDate  = formatDate(task.limitDate);
+  const formattedDate = formatDate(task.limitDate);
 
   return (
     <Sheet>
@@ -57,26 +58,34 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
               defaultValue={task.name}
               {...editForm.register("name")}
             />
+
+            <ErrorMessage message={editForm.formState.errors.name?.message} />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="limitDate">Data Limite</Label>
             <Input
+              {...editForm.register("limitDate")}
               id="limitDate"
               type="date"
               defaultValue={formattedDate}
-              {...editForm.register("limitDate")}
+            />
+            <ErrorMessage
+              message={editForm.formState.errors.limitDate?.message}
             />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="cost">Custo</Label>
             <Input
+              {...editForm.register("cost")}
               id="cost"
+              type="number"
               placeholder="R$"
               defaultValue={task.cost}
-              {...editForm.register("cost")}
+              onKeyDown={MaskInputNumber}
             />
+            <ErrorMessage message={editForm.formState.errors.cost?.message} />
           </div>
 
           <SheetFooter>

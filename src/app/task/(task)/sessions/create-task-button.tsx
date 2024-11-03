@@ -15,6 +15,8 @@ import { Label } from "@/components/ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Plus } from "lucide-react";
 import { useTaskModel } from "../task.model";
+import { MaskInputNumber } from "@/lib/utils";
+import ErrorMessage from "@/components/error-message";
 
 const CreateTaskButton = () => {
   const { handleCreateTask, createForm } = useTaskModel();
@@ -44,20 +46,31 @@ const CreateTaskButton = () => {
               autoFocus
               {...createForm.register("name")}
             />
+            <ErrorMessage message={createForm.formState.errors.name?.message} />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="limitDate">Data Limite</Label>
-            <Input id="limitDate" type="date" {...createForm.register("limitDate")} />
+            <Input
+              id="limitDate"
+              type="date"
+              {...createForm.register("limitDate")}
+            />
+            <ErrorMessage
+              message={createForm.formState.errors.limitDate?.message}
+            />
           </div>
 
           <div className="mb-4 flex flex-col gap-3">
             <Label htmlFor="cost">Custo</Label>
             <Input
+              type="number"
               id="cost"
               placeholder="R$"
+              onKeyDown={MaskInputNumber}
               {...createForm.register("cost")}
             />
+            <ErrorMessage message={createForm.formState.errors.cost?.message} />
           </div>
 
           <DialogFooter>
