@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Table,
   TableBody,
@@ -14,15 +12,13 @@ import { formatDate, formatPrice, isCostAboveThreshold } from "@/lib/utils";
 import DeleteTaskButton from "./delete-task-button";
 import EditTaskButton from "./edit-task-button";
 import MoveTaskButton from "./move-task-button";
-import { useTaskModel } from "../task.model";
 
 type ViewTasksProps = {
   tasks: TaskResponse[] | [];
 };
 
 const ViewTasks = ({ tasks }: ViewTasksProps) => {
-  const { handleMoveToUp, handleMoveToDown } = useTaskModel();
-
+  
   return (
     <Table>
       <TableCaption>Tarefas cadastradas no sistema</TableCaption>
@@ -49,10 +45,7 @@ const ViewTasks = ({ tasks }: ViewTasksProps) => {
               <div className="flex items-center gap-2">
                 <DeleteTaskButton id={task.id} />
                 <EditTaskButton task={task} />
-                <MoveTaskButton
-                  onMoveUp={() => handleMoveToUp(tasks, index)}
-                  onMoveDown={() => handleMoveToDown(tasks, index)}
-                />
+                <MoveTaskButton index={index} tasks={tasks} />
               </div>
             </TableCell>
           </TableRow>
