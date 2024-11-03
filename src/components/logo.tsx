@@ -1,15 +1,12 @@
 import { ListMinus } from "lucide-react";
-import Link from "next/link";
+
 import React from "react";
 
 export const Logo = () => {
   return (
-    <Link
-      href={"/task"}
-      className="hover:text-primary flex items-center font-bold text-slate-900 transition-all hover:scale-105"
-    >
+    <div className="flex cursor-pointer items-center text-2xl font-bold text-slate-900 transition-all hover:scale-105 hover:text-primary">
       <>TASKLIST</>
-      <ListMinus size={20} />
-    </Link>
+      <ListMinus size={28} />
+    </div>
   );
 };

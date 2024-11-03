@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import FormLogin from "./sessions/form-login";
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+  return <FormLogin />;
+};
 
-export default Login
+export default Login;
