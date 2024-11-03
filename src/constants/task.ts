@@ -10,4 +10,7 @@ export const TASK_MESSAGES = {
   UPDATE_TASK_SUCCESS: "Tarefa atualizada com sucesso! ✅",
   UPDATE_TASK_ERROR:
     "Houve um problema ao atualizar a tarefa. Por favor, tente novamente.",
+  REORDER_TASK_SUCCESS: "Tarefas reordenadas com sucesso! 🔄",
+  REORDER_TASK_ERROR:
+    "Erro ao reordenar as tarefas. Por favor, tente novamente.",
 };

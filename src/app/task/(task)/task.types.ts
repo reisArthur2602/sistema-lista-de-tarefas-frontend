@@ -18,3 +18,8 @@ export type EditTaskRequest = {
   cost: number;
   limitDate: string;
 };
+
+export type ReoderTaskRequest = {
+  id: string;
+  sortOrder: number;
+}[];

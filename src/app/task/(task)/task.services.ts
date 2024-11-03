@@ -1,7 +1,12 @@
 "use server";
 import { TASK_ENDPOINT, TASK_MESSAGES } from "@/constants/task";
 import { apiConnection } from "@/lib/axios";
-import { EditTaskRequest, TaskRequest, TaskResponse } from "./task.types";
+import {
+  EditTaskRequest,
+  ReoderTaskRequest,
+  TaskRequest,
+  TaskResponse,
+} from "./task.types";
 import { revalidatePath } from "next/cache";
 import { HttpResponse } from "@/types/http";
 
@@ -48,7 +53,7 @@ const editTask = async (
   credentials: EditTaskRequest,
 ): Promise<HttpResponse<string>> => {
   try {
-    await apiConnection.patch<TaskResponse>(TASK_ENDPOINT, credentials);
+    await apiConnection.put<TaskResponse>(TASK_ENDPOINT, credentials);
     revalidatePath("/task");
     return {
       success: true,
@@ -62,4 +67,22 @@ const editTask = async (
   }
 };
 
-export { getTasks, createTask, deleteTask, editTask };
+const reorderTask = async (
+  credentials: ReoderTaskRequest,
+): Promise<HttpResponse<string>> => {
+  try {
+    await apiConnection.patch(TASK_ENDPOINT + "/reorder", credentials);
+    revalidatePath("/task");
+    return {
+      success: true,
+      body: TASK_MESSAGES.REORDER_TASK_SUCCESS,
+    };
+  } catch {
+    return {
+      success: false,
+      error: TASK_MESSAGES.REORDER_TASK_ERROR,
+    };
+  }
+};
+
+export { getTasks, createTask, deleteTask, editTask, reorderTask };
