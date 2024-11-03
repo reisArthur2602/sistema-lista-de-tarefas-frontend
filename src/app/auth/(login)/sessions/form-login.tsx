@@ -4,14 +4,20 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useLoginModel } from "../login.model";
+import ErrorMessage from "@/components/error-message";
 
 const FormLogin = () => {
+  const { loginForm, handleLogin } = useLoginModel();
+
   return (
-    <form className="flex w-full max-w-96 flex-col gap-6">
+    <form
+      className="flex w-full max-w-96 flex-col gap-6"
+      onSubmit={handleLogin}
+    >
       <div className="flex items-center justify-center">
         <Logo />
       </div>
-
       <div>
         <h1 className="text-4xl font-bold">Login</h1>
         <p className="text-zinc-400">
@@ -19,8 +25,23 @@ const FormLogin = () => {
         </p>
       </div>
 
-      <Input placeholder="Digite seu email" />
-      <Input placeholder="******" type="password" />
+      <div className="flex flex-col gap-3">
+        <Input
+          placeholder="Digite seu email"
+          {...loginForm.register("email")}
+        />
+        <ErrorMessage message={loginForm.formState.errors.email?.message} />
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <Input
+          placeholder="******"
+          type="password"
+          {...loginForm.register("password")}
+        />
+        <ErrorMessage message={loginForm.formState.errors.password?.message} />
+      </div>
+
       <Button>Acessar</Button>
       <Link
         href="/auth/register"
