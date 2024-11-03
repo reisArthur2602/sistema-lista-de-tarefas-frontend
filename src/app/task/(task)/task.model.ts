@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateTaskSchema, EditTaskSchema } from "./task.schema";
@@ -8,7 +9,8 @@ import { createTask, deleteTask, editTask, reorderTask } from "./task.services";
 import { toast } from "sonner";
 
 export const useTaskModel = (id?: string) => {
-  
+  const [loading, setLoading] = useState(false);
+
   const createForm = useForm<TaskRequest>({
     resolver: zodResolver(CreateTaskSchema),
   });
@@ -18,10 +20,10 @@ export const useTaskModel = (id?: string) => {
   });
 
   const handleCreateTask = createForm.handleSubmit(async (credentials) => {
-  
     const result = await createTask(credentials);
 
     if (result.success) {
+      createForm.reset();
       toast.success(result.body);
     } else {
       toast.error(result.error);
@@ -45,6 +47,7 @@ export const useTaskModel = (id?: string) => {
     });
 
     if (result.success) {
+      editForm.reset();
       toast.success(result.body);
     } else {
       toast.error(result.error);
@@ -52,8 +55,7 @@ export const useTaskModel = (id?: string) => {
   });
 
   const handleMoveToUp = async (tasks: TaskResponse[], index: number) => {
-    if (index === 0) return;
-
+    setLoading(true);
     const taskToMoveUp = tasks[index];
     const taskToMoveDown = tasks[index - 1];
 
@@ -66,14 +68,15 @@ export const useTaskModel = (id?: string) => {
 
     if (result.success) {
       toast.success(result.body);
+      setLoading(false);
     } else {
       toast.error(result.error);
+      setLoading(false);
     }
   };
 
   const handleMoveToDown = async (tasks: TaskResponse[], index: number) => {
-    if (index === tasks.length - 1) return;
-
+    setLoading(true);
     const taskToMoveDown = tasks[index];
     const taskToMoveUp = tasks[index + 1];
 
@@ -85,8 +88,10 @@ export const useTaskModel = (id?: string) => {
     const result = await reorderTask(tasksToUpdate);
 
     if (result.success) {
+      setLoading(false);
       toast.success(result.body);
     } else {
+      setLoading(false);
       toast.error(result.error);
     }
   };
@@ -99,5 +104,6 @@ export const useTaskModel = (id?: string) => {
     handleEditTask,
     handleMoveToUp,
     handleMoveToDown,
+    loading,
   };
 };

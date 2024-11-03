@@ -45,6 +45,7 @@ const CreateTaskButton = () => {
               placeholder="Nome para a tarefa"
               autoFocus
               {...createForm.register("name")}
+              disabled={createForm.formState.isSubmitting}
             />
             <ErrorMessage message={createForm.formState.errors.name?.message} />
           </div>
@@ -55,6 +56,7 @@ const CreateTaskButton = () => {
               id="limitDate"
               type="date"
               {...createForm.register("limitDate")}
+              disabled={createForm.formState.isSubmitting}
             />
             <ErrorMessage
               message={createForm.formState.errors.limitDate?.message}
@@ -69,18 +71,25 @@ const CreateTaskButton = () => {
               placeholder="R$"
               onKeyDown={MaskInputNumber}
               {...createForm.register("cost")}
+              disabled={createForm.formState.isSubmitting}
             />
             <ErrorMessage message={createForm.formState.errors.cost?.message} />
           </div>
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="secondary" type="button">
+              <Button
+                variant="secondary"
+                type="button"
+                disabled={createForm.formState.isSubmitting}
+              >
                 Cancelar
               </Button>
             </DialogClose>
 
-            <Button>Cadastrar</Button>
+            <Button disabled={createForm.formState.isSubmitting}>
+              Cadastrar
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

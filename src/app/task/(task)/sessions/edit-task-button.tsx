@@ -55,6 +55,7 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
               id="name"
               placeholder="Nome para a tarefa"
               autoFocus
+              disabled={editForm.formState.isSubmitting}
               defaultValue={task.name}
               {...editForm.register("name")}
             />
@@ -69,6 +70,7 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
               id="limitDate"
               type="date"
               defaultValue={formattedDate}
+              disabled={editForm.formState.isSubmitting}
             />
             <ErrorMessage
               message={editForm.formState.errors.limitDate?.message}
@@ -84,18 +86,25 @@ const EditTaskButton = ({ task }: EditTaskButtonProps) => {
               placeholder="R$"
               defaultValue={task.cost}
               onKeyDown={MaskInputNumber}
+              disabled={editForm.formState.isSubmitting}
             />
             <ErrorMessage message={editForm.formState.errors.cost?.message} />
           </div>
 
           <SheetFooter>
             <SheetClose asChild>
-              <Button variant={"secondary"} type="button">
+              <Button
+                variant={"secondary"}
+                type="button"
+                disabled={editForm.formState.isSubmitting}
+              >
                 Cancelar
               </Button>
             </SheetClose>
 
-            <Button>Salvar alterações</Button>
+            <Button disabled={editForm.formState.isSubmitting}>
+              Salvar alterações
+            </Button>
           </SheetFooter>
         </form>
       </SheetContent>

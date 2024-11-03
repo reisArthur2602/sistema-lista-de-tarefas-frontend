@@ -1,3 +1,4 @@
+
 import {
   Table,
   TableBody,
@@ -13,12 +14,15 @@ import DeleteTaskButton from "./delete-task-button";
 import EditTaskButton from "./edit-task-button";
 import MoveTaskButton from "./move-task-button";
 
+
 type ViewTasksProps = {
   tasks: TaskResponse[] | [];
 };
 
 const ViewTasks = ({ tasks }: ViewTasksProps) => {
+
   
+
   return (
     <Table>
       <TableCaption>Tarefas cadastradas no sistema</TableCaption>

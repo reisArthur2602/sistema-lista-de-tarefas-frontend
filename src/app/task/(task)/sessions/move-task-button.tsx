@@ -9,11 +9,11 @@ import { useTaskModel } from "../task.model";
 type MoveTaskButtonProps = {
   tasks: TaskResponse[] | [];
   index: number;
+  
 };
 
 const MoveTaskButton = ({ tasks, index }: MoveTaskButtonProps) => {
-  
-  const { handleMoveToDown, handleMoveToUp } = useTaskModel();
+  const { handleMoveToDown, handleMoveToUp, loading } = useTaskModel();
 
   return (
     <div className="flex flex-col gap-2">
@@ -22,7 +22,7 @@ const MoveTaskButton = ({ tasks, index }: MoveTaskButtonProps) => {
         variant={"outline"}
         onClick={() => handleMoveToUp(tasks, index)}
         className="size-7"
-        disabled={index === 0}
+        disabled={index === 0 || loading}
       >
         <ChevronUp />
       </Button>
@@ -31,7 +31,7 @@ const MoveTaskButton = ({ tasks, index }: MoveTaskButtonProps) => {
         variant={"outline"}
         onClick={() => handleMoveToDown(tasks, index)}
         className="size-7"
-        disabled={index === tasks.length - 1}
+        disabled={index === tasks.length - 1 || loading}
       >
         <ChevronDown />
       </Button>
