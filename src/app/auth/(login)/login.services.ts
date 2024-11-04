@@ -5,6 +5,12 @@ import { LoginRequest, LoginResponse } from "./login.types";
 import { apiConnection } from "@/lib/axios";
 import { USER_ENDPOINT, USER_MESSAGES } from "@/constants/user";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+const deleteSessionUser = () => {
+  cookies().delete("session-access-token");
+  redirect("/auth");
+};
 
 const sessionUser = async (
   credentials: LoginRequest,
@@ -38,4 +44,4 @@ const sessionUser = async (
   }
 };
 
-export { sessionUser };
+export { sessionUser, deleteSessionUser };

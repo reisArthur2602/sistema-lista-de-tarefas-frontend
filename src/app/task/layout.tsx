@@ -1,4 +1,5 @@
-import { Logo } from "@/components/logo";
+
+import Header from "./sessions/header";
 
 type TaskLayoutProps = {
   children: React.ReactNode;
@@ -6,11 +7,9 @@ type TaskLayoutProps = {
 
 const TaskLayout = ({ children }: TaskLayoutProps) => {
   return (
-    <div className="flex h-full flex-col gap-8 px-6">
-      <header className="flex h-16 items-center uppercase">
-        <Logo />
-      </header>
-      <main className="flex-1">{children}</main>
+    <div className="flex h-full flex-col gap-8">
+      <Header />
+      <main className="flex-1 px-6">{children}</main>
     </div>
   );
 };
