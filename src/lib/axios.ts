@@ -2,7 +2,7 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 const apiConnection = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_KEY,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 apiConnection.interceptors.response.use(null, (error) => {
